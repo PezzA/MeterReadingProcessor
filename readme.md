@@ -1,4 +1,5 @@
 # MeterReadingProcessor
+
 ## Summary
 A .NET 9 app that will handle the loading of a CSV file containing meter readings and validating against a preset list of accounts.  The initial entry point for processing of a file will be a REST based API, but the core of the logic shouldn't care about the web.  It should be equally able to load a file off disk via a CLI or maybe off a network share for larger sets of batch processing.
 
@@ -18,6 +19,9 @@ I've used [Aspire](https://learn.microsoft.com/en-us/dotnet/aspire/get-started/a
 With more time I might have used Entity Framework and to setup the DB with migration scripts and have that run off the main api projects.  Haven't used EF too much in the past few years, but hear that is in a good place at the moment.  At the moment SQL access is done using [Dapper](https://github.com/DapperLib/Dapper).
 
 I would also have liked to have run some examples of observability factes running in the aspire app, logging, tracing etc...
+
+## Other Notes
+There is lots of success outcome handling in this, and mostly fought with nullable reference types which was constantly adding green ink.  A few approaches in the file, return a non nullable type and then use exceptions for non sucessful parsing (even through this is not strictly speaking exceptional), or parse back a result type and handle the null propegation and required type narrowing.  Having used discriminated unions in a few other langugates, I so wanted to have a type that was something like `type ReadingResult = MeterReading | ValidationError`.  Hopefully [one day soon]  (https://github.com/dotnet/csharplang/blob/main/proposals/TypeUnions.md#standard---union-classes) we can!
 
 ## Testing Notes
 I've included mainly unit tests around some of the more static/pure functions that take an input and return a particular results.  Even in the production of this demo they have been very useful when refactoring.

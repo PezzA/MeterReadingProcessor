@@ -12,7 +12,7 @@ A .NET 9 app that will handle the loading of a CSV file containing meter reading
 	- Reading values should be in the format NNNNN.  
 	    Have assumed this to mean the raw value on the file should be 5 numeric digits.  So `012345` is valid, but `1234` is not.
 - Want to demonstrate SOLID principles so code is designed keeping likely possible future extension in mind.
-- 
+
 ## Dependencies
 I've used [Aspire](https://learn.microsoft.com/en-us/dotnet/aspire/get-started/aspire-overview) as the development environment container here. Mainly as it has a good story for setting up dev environments in local containers. To run the aspire project you'll need to have either Docker Desktop or Podman running locally.  Aspire will then create the test SQL container and run the SQL setup steps, which includes schema and seed test data creation.  It then takes the sql connection string and injects this as an environment variable to the api project.
 

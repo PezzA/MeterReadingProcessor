@@ -63,7 +63,7 @@ app.MapPost("/meter-reading-uploads", async (HttpRequest request, Stream body, I
     // O(2n), but just for example
     var results = new LoadResults(loadedFile.FileEntries.Count(e => e.Success), loadedFile.FileEntries.Count(e => !e.Success));
 
-    return Results.Ok(loadedFile);
+    return Results.Ok(results);
 });
 
 app.UseHttpsRedirection();

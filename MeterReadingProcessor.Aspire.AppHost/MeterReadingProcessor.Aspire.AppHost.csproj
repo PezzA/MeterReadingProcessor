@@ -1,0 +1,23 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>net8.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+    <IsAspireHost>true</IsAspireHost>
+    <UserSecretsId>5cc28a9d-a271-4eae-93e1-34e9fb719ac7</UserSecretsId>
+  </PropertyGroup>
+
+        <Sdk Name="Aspire.AppHost.Sdk" Version="9.1.0" />
+    
+  <ItemGroup>
+    <PackageReference Include="Aspire.Hosting.AppHost" Version="9.2.1" />
+    <PackageReference Include="Aspire.Hosting.SqlServer" Version="9.2.1" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\MeterReadingProcessor.Api\MeterReadingProcessor.Api.csproj" />
+  </ItemGroup>
+
+</Project>

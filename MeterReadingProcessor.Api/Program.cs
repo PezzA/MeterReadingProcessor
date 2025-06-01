@@ -7,8 +7,13 @@ using MeterReadingProcessor.Services.MeterReadings;
 using MeterReadingProcessor.Services.MeterReadings.MeterReadingValidators;
 
 using MeterReadingProcessor.Api;
+using Microsoft.AspNetCore.Mvc;
+
 
 var builder = WebApplication.CreateBuilder(args);
+
+builder.AddServiceDefaults();
+builder.Services.AddServiceDiscovery();
 
 // Add services to the container.
 // Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
@@ -31,6 +36,8 @@ var dbConnectionString = builder.Configuration.GetConnectionString("MeterReading
 builder.Services.AddSingleton<IAccountRepository>(new SqlAccountRespository(dbConnectionString));
 builder.Services.AddSingleton<IMeterReadingRepository>(new SqlMeterReadingRepository(dbConnectionString));
 
+
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -44,7 +51,7 @@ if (app.Environment.IsDevelopment())
     });
 }
 
-app.MapPost("/meter-reading-uploads", async (HttpRequest request, Stream body, IMeterReadingFileLoader meterReadingFileLoader) =>
+app.MapPost("/meter-reading-uploads", async (HttpRequest request, Stream body, IMeterReadingFileLoader meterReadingFileLoader, [FromServices] ILogger<Program> logger) =>
 {
     // Hardcoded value to limit to request of 1MB, this could be better off on the edge, WAF etc..
     // but is provided as an example of validation that might specifically be applied to web, others could be auth etc..
@@ -53,11 +60,18 @@ app.MapPost("/meter-reading-uploads", async (HttpRequest request, Stream body, I
         return Results.BadRequest("Request too large");
     }
 
+    logger.LogInformation("Received file of {bytes}bytes", request.ContentLength);
+
     FileLoadResult loadedFile = await meterReadingFileLoader.LoadAsync(body);
 
     if (!loadedFile.Success)
     { 
         return Results.BadRequest(loadedFile.Narative);
+    }
+
+    foreach (var fileEntry in loadedFile.FileEntries)
+    {
+        logger.LogInformation("Entry Result: RawData {RawData}, Success: {Success:}, Narrative: {Narrative}", fileEntry.RawReading, fileEntry.Success, fileEntry.Narrative);
     }
 
     // O(2n), but just for example

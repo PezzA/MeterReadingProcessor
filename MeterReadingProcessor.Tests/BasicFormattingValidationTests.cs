@@ -10,7 +10,7 @@ public class StaticValidationTests
     // last field is not a 5 digit number
     [InlineData("2345", "22/04/2019 12:25", "5522", false)]
     [InlineData("2345xx", "22/04/2019 12:25", "55222", false)]
-    [InlineData("2345xx", "22/04/201934 12:25", "55222", false)]
+    [InlineData("2345", "22/04/201934 12:25", "55222", false)]
     [InlineData("2345", "22/04/2019 12:25", "55223", true)]
 
     public void BasicFormatValidator_ValidatesCorrectly(string accountNumber, string readDateTime, string readValue, bool expectedresult)

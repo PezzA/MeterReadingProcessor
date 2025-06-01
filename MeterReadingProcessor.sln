@@ -11,7 +11,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MeterReadingProcessor.Tests
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MeterReadingProcessor.Aspire.AppHost", "MeterReadingProcessor.Aspire.AppHost\MeterReadingProcessor.Aspire.AppHost.csproj", "{474C4887-463D-4DF4-9BB0-BFCE59B18EDE}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AspireMetrics.ServiceDefaults", "MeterReadingProcessor.ServiceDefaults\AspireMetrics.ServiceDefaults\AspireMetrics.ServiceDefaults.csproj", "{70593E90-E443-41C3-95EE-E32185F5A043}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MeterReadingProcessor.ServiceDefaults", "MeterReadingProcessor.ServiceDefaults\AspireMetrics.ServiceDefaults\MeterReadingProcessor.ServiceDefaults.csproj", "{70593E90-E443-41C3-95EE-E32185F5A043}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
